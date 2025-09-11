@@ -313,6 +313,35 @@
                 justify-content: space-between;
             }
 
+            @media(max-width:768px) {
+                .hero {
+                    min-height: 60vh;
+                    /* smaller height for mobile */
+                    background-size: cover;
+                    background-position: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                }
+
+                .hero h1 {
+                    font-size: 1.5rem;
+                    /* smaller font for one-line */
+                    line-height: 1.2;
+                    white-space: nowrap;
+                    /* forces one line */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-align: center;
+                }
+
+                .hero .btn {
+                    font-size: 14px;
+                    padding: 10px 16px;
+                }
+            }
+
             .hamburger {
                 display: inline-flex;
                 font-size: 26px;
@@ -511,6 +540,7 @@
     </header>
 
     <!-- MOBILE MENU -->
+    <button class="hamburger icon-btn">&#9776;</button>
     <div class="mobile-menu" id="mobileMenu">
         <button id="closeMobileMenu" class="close-mobile-btn">&times;</button>
         <ul class="mobile-links">
@@ -632,9 +662,15 @@
                 if (!isOpen) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotate');
+                    btn.setAttribute('aria-expanded', 'true');
+                } else {
+                    btn.setAttribute('aria-expanded', 'false')
                 }
             });
         });
+
+
+
     </script>
 </body>
 
