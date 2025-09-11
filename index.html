@@ -254,7 +254,7 @@
 
         /* ---------------- HERO ---------------- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             width: 100%;
             background: url('cloth.jpeg') center center / cover no-repeat;
             display: flex;
@@ -303,6 +303,13 @@
                 margin: 0;
             }
 
+            .hero h1 {
+                font-size: 1.8rem;
+                line-height: 1.2;
+                white-space: normal;
+                text-align: center;
+            }
+
             .hamburger {
                 display: inline-flex;
                 font-size: 26px;
@@ -310,6 +317,10 @@
                 border: none;
                 cursor: pointer;
                 color: var(--text);
+            }
+
+            .notice-currency {
+                display: none;
             }
 
             /* Fullscreen mobile menu */
@@ -488,17 +499,20 @@
 
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
+        <button id="closeMobileMenu">&times;</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-links">
             <li>
                 <button class="accordion">Home <span class="mobile-arrow">&#9654;</span></button>
-                <ul class="submenu" role="menu" style="max-height: 0;">
+                <ul class="submenu" role="menu">
                     <li><a href="#">Sub Home 1</a></li>
                     <li><a href="#">Sub Home 2</a></li>
                 </ul>
             </li>
             <li>
                 <button class="accordion">Shop <span class="mobile-arrow">&#9654;</span></button>
-                <ul class="submenu" role="menu" style="max-height: 0;">
+                <ul class="submenu" role="menu">
                     <li><a href="#">Men</a></li>
                     <li><a href="#">Women</a></li>
                     <li><a href="#">Accessories</a></li>
@@ -545,6 +559,12 @@
             mobileMenu.classList.toggle('open');
             hamburger.innerHTML = mobileMenu.classList.contains('open') ? '&times;' : '&#9776;';
         });
+        const closeBtn = document.getElementById('closeMobileMenu');
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');       // close the mobile menu
+            hamburger.innerHTML = '&#9776;';           // reset hamburger icon
+        });
+
 
         // make sure all submenus are closed on page load
         document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
