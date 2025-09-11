@@ -344,7 +344,17 @@
             .mobile-menu.open {
                 opacity: 1;
                 visibility: visible;
-                display: block;
+            }
+
+            .close-mobile-btn {
+                font-size: 32px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                color: #111;
+                display: none;
+                margin-bottom: 20px;
+                text-align: right;
             }
 
             .mobile-links {
@@ -354,7 +364,7 @@
             }
 
             .mobile-links>li {
-                padding: 14px 0;
+                padding: 12px 0;
                 border-bottom: 1px solid #f0f0f0;
             }
 
@@ -370,11 +380,8 @@
                 padding: 6px 0;
                 color: var(--text);
                 cursor: pointer;
-            }
-
-            .mobile-links button.accordion {
-                font-weight: 600;
                 text-align: left;
+                font-weight: 500;
             }
 
             .submenu {
@@ -400,7 +407,14 @@
             }
 
             .mobile-currency {
-                margin-bottom: 12px;
+                display: block;
+                margin: 20px 0;
+            }
+
+            .mobile-currency select {
+                width: 100;
+                padding: 8px;
+                font-size: 14px;
             }
 
             .social-row {
@@ -408,6 +422,11 @@
                 gap: 14px;
                 align-items: center;
                 font-size: 20px;
+            }
+
+            .social-row a {
+                color: var(--text);
+                text-decoration: none;
             }
 
             .mobile-arrow {
@@ -499,7 +518,7 @@
 
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
-        <button id="closeMobileMenu">&times;</button>
+        <button id="closeMobileMenu" class="close-mobile-btn">&times;</button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-links">
@@ -552,40 +571,45 @@
     </section>
 
     <script>
-        // Mobile menu toggle
         const hamburger = document.getElementById('hamburgerBtn');
         const mobileMenu = document.getElementById('mobileMenu');
-        hamburger.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-            hamburger.innerHTML = mobileMenu.classList.contains('open') ? '&times;' : '&#9776;';
-        });
         const closeBtn = document.getElementById('closeMobileMenu');
-        closeBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');       // close the mobile menu
-            hamburger.innerHTML = '&#9776;';           // reset hamburger icon
+
+        /* Show menu */
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            closeBtn.style.display = 'block';   // show close button
+            hamburger.style.display = 'none';   // hide hamburger
         });
 
+        /* Hide menu */
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            closeBtn.style.display = 'none';    // hide close button
+            hamburger.style.display = 'inline-flex';  // show hamburger again
+        });
 
-        // make sure all submenus are closed on page load
+        /* Close all submenus on load */
         document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
         document.querySelectorAll('.accordion').forEach(b => b.setAttribute('aria-expanded', 'false'));
 
-        // Accordion toggle
+        /* Accordion toggle */
         document.querySelectorAll('.accordion').forEach(btn => {
             btn.addEventListener('click', () => {
                 const submenu = btn.nextElementSibling;
                 const arrow = btn.querySelector('.mobile-arrow');
                 const isOpen = submenu.classList.contains('open');
 
+                // Close other submenus
                 document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
                 document.querySelectorAll('.mobile-arrow').forEach(a => a.classList.remove('rotate'));
 
                 if (!isOpen) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotate');
-                    btn.setAttribute('aria-expanded', "true");
+                    btn.setAttribute('aria-expanded', 'true');
                 } else {
-                    btn.setAttribute('aria-expanded', "false")
+                    btn.setAttribute('aria-expanded', 'false');
                 }
             });
         });
