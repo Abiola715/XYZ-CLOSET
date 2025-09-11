@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XYZ CLOSET</title>
 
     <!-- Font Awesome for icons -->
@@ -26,7 +26,6 @@
         }
 
         body {
-            margin: 0;
             font-family: "Montserrat", system-ui, sans-serif;
             color: var(--text);
             -webkit-font-smoothing: antialiased;
@@ -37,6 +36,10 @@
             text-decoration: none;
         }
 
+        button {
+            cursor: pointer;
+        }
+
         /* ---------------- NOTICE BAR ---------------- */
         .notice-bar {
             background: var(--burgundy);
@@ -44,8 +47,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
             padding: 10px 20px;
+            gap: 12px;
         }
 
         .notice-wrapper {
@@ -61,7 +64,6 @@
             border: none;
             color: white;
             font-size: 20px;
-            cursor: pointer;
             padding: 6px;
         }
 
@@ -94,7 +96,6 @@
             position: relative;
         }
 
-        /* Currency dropdown (notice bar) */
         .notice-currency {
             position: relative;
             margin-left: 12px;
@@ -113,7 +114,6 @@
             background: var(--burgundy);
             color: #fff;
             border-radius: 6px;
-            overflow: hidden;
             min-width: 180px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, .15);
             z-index: 1200;
@@ -127,11 +127,16 @@
             border: none;
             background: transparent;
             color: #fff;
-            cursor: pointer;
         }
 
         .notice-currency .list button:hover {
             background: rgba(255, 255, 255, 0.06);
+        }
+
+        .notice-currency:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            transition: background 0.22s ease;
         }
 
         /* ---------------- NAVBAR ---------------- */
@@ -165,8 +170,6 @@
             list-style: none;
             gap: 18px;
             align-items: center;
-            margin: 0;
-            padding: 0;
             flex: 1;
         }
 
@@ -175,11 +178,27 @@
             border-radius: 6px;
             font-weight: 500;
             color: var(--text);
+            position: relative;
+            transition: color 0.22s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--burgundy);
+            left: 0;
+            bottom: -4px;
+            transition: width 0.22s ease;
         }
 
         .nav-links a:hover {
             color: var(--burgundy);
-            text-decoration: underline;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .dropdown {
@@ -200,13 +219,7 @@
             border-radius: 6px;
             z-index: 1000;
             padding: 6px 0;
-        }
-
-        .dropdown-menu,
-        .submenu {
             list-style: none;
-            padding-left: 0;
-            margin: 0;
         }
 
         .dropdown:hover .dropdown-menu {
@@ -236,20 +249,15 @@
         .icon-btn {
             background: transparent;
             border: none;
-            cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 6px;
+            cursor: pointer;
         }
 
         .desktop-currency {
             display: inline-block;
-        }
-
-        .hamburger,
-        .mobile-menu {
-            display: none;
         }
 
         /* ---------------- HERO ---------------- */
@@ -279,12 +287,18 @@
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
         }
 
         .hero .btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.15);
             background: #8b0000;
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px 12px rgba(0, 0, 0, .15);
+        }
+
+        .mobile-menu,
+        .hamburger {
+            display: none;
         }
 
         /* ---------------- MOBILE ---------------- */
@@ -297,17 +311,6 @@
 
             .nav-inner {
                 justify-content: space-between;
-            }
-
-            .brand {
-                margin: 0;
-            }
-
-            .hero h1 {
-                font-size: 1.8rem;
-                line-height: 1.2;
-                white-space: normal;
-                text-align: center;
             }
 
             .hamburger {
@@ -323,7 +326,6 @@
                 display: none;
             }
 
-            /* Fullscreen mobile menu */
             .mobile-menu {
                 position: fixed;
                 top: 56px;
@@ -337,8 +339,6 @@
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity .22s ease;
-                display: block;
-                /* but only visible when 'open'  */
             }
 
             .mobile-menu.open {
@@ -412,7 +412,7 @@
             }
 
             .mobile-currency select {
-                width: 100;
+                width: 100%;
                 padding: 8px;
                 font-size: 14px;
             }
@@ -470,14 +470,9 @@
     <!-- NAVBAR -->
     <header class="navbar">
         <div class="nav-inner">
-
-            <!-- Hamburger (mobile only) -->
             <button class="hamburger icon-btn" id="hamburgerBtn">&#9776;</button>
-
-            <!-- Logo -->
             <div class="brand">My Brand Logo</div>
 
-            <!-- Desktop nav links -->
             <ul class="nav-links">
                 <li class="dropdown">
                     <a href="#">HOME ▾</a>
@@ -496,11 +491,10 @@
                         <li><a href="#">SHOES</a></li>
                     </ul>
                 </li>
-                <li><a href="about.html">ABOUT</a></li>
-                <li><a href="contact.html">CONTACT</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">CONTACT</a></li>
             </ul>
 
-            <!-- Right side -->
             <div class="nav-right">
                 <div class="desktop-currency">
                     <select>
@@ -510,8 +504,8 @@
                         <option>€ Eurozone - EUR</option>
                     </select>
                 </div>
-                <button class="icon-btn"><img src="search.png" width="18"></button>
-                <button class="icon-btn"><img src="shopping-bag.png" width="22"></button>
+                <a href="search.html" class="icon-btn"><img src="search.png" width="18"></a>
+                <a href="cart.html" class="icon-btn"><img src="shopping-bag.png" width="22"></a>
             </div>
         </div>
     </header>
@@ -519,19 +513,17 @@
     <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
         <button id="closeMobileMenu" class="close-mobile-btn">&times;</button>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-links">
             <li>
                 <button class="accordion">Home <span class="mobile-arrow">&#9654;</span></button>
-                <ul class="submenu" role="menu">
+                <ul class="submenu">
                     <li><a href="#">Sub Home 1</a></li>
                     <li><a href="#">Sub Home 2</a></li>
                 </ul>
             </li>
             <li>
                 <button class="accordion">Shop <span class="mobile-arrow">&#9654;</span></button>
-                <ul class="submenu" role="menu">
+                <ul class="submenu">
                     <li><a href="#">Men</a></li>
                     <li><a href="#">Women</a></li>
                     <li><a href="#">Accessories</a></li>
@@ -539,8 +531,8 @@
                     <li><a href="#">Shoes</a></li>
                 </ul>
             </li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
 
         <div class="menu-divider"></div>
@@ -566,34 +558,67 @@
     <section class="hero">
         <div class="hero-content">
             <h1>NEW COLLECTIONS AVAILABLE</h1>
-            <a class="btn" href="shop.html">SHOP HERE</a>
+            <a class="btn" href="#">SHOP HERE</a>
         </div>
     </section>
 
     <script>
+        // ---------------- NOTICE BAR ROTATION ----------------
+        const noticeItems = document.querySelectorAll('.notice-item');
+        let currentNotice = 0;
+
+        function showNotice(index) {
+            noticeItems.forEach((item, i) => {
+                item.classList.toggle('show', i === index);
+            });
+        }
+
+        document.getElementById('noticeNext').addEventListener('click', () => {
+            currentNotice = (currentNotice + 1) % noticeItems.length;
+            showNotice(currentNotice);
+        });
+
+        document.getElementById('noticePrev').addEventListener('click', () => {
+            currentNotice = (currentNotice - 1 + noticeItems.length) % noticeItems.length;
+            showNotice(currentNotice);
+        });
+
+        setInterval(() => {
+            currentNotice = (currentNotice + 1) % noticeItems.length;
+            showNotice(currentNotice);
+        }, 4000);
+
+        // ---------------- CURRENCY DROPDOWN ----------------
+        const noticeCurrency = document.getElementById('noticeCurrency');
+        const currencyList = document.getElementById('noticeCurrencyList');
+
+        noticeCurrency.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currencyList.style.display = currencyList.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', () => {
+            currencyList.style.display = 'none';
+        });
+
+        // ---------------- MOBILE MENU ----------------
         const hamburger = document.getElementById('hamburgerBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const closeBtn = document.getElementById('closeMobileMenu');
 
-        /* Show menu */
         hamburger.addEventListener('click', () => {
             mobileMenu.classList.add('open');
-            closeBtn.style.display = 'block';   // show close button
-            hamburger.style.display = 'none';   // hide hamburger
+            closeBtn.style.display = 'block';
+            hamburger.style.display = 'none';
         });
 
-        /* Hide menu */
         closeBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('open');
-            closeBtn.style.display = 'none';    // hide close button
-            hamburger.style.display = 'inline-flex';  // show hamburger again
+            closeBtn.style.display = 'none';
+            hamburger.style.display = 'inline-flex';
         });
 
-        /* Close all submenus on load */
-        document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
-        document.querySelectorAll('.accordion').forEach(b => b.setAttribute('aria-expanded', 'false'));
-
-        /* Accordion toggle */
+        // ---------------- MOBILE ACCORDION ----------------
         document.querySelectorAll('.accordion').forEach(btn => {
             btn.addEventListener('click', () => {
                 const submenu = btn.nextElementSibling;
@@ -607,9 +632,6 @@
                 if (!isOpen) {
                     submenu.classList.add('open');
                     arrow.classList.add('rotate');
-                    btn.setAttribute('aria-expanded', 'true');
-                } else {
-                    btn.setAttribute('aria-expanded', 'false');
                 }
             });
         });
