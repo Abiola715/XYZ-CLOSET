@@ -311,93 +311,121 @@
             }
         }
 
-        /* ================= MOBILE SPECIFIC ================= */
+        /* ====== NAVBAR ====== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: #fff;
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* Hamburger (hidden on desktop) */
+        .hamburger {
+            font-size: 26px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Logo */
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        /* Icons (right side) */
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 20px;
+        }
+
+        /* ====== MOBILE MENU ====== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 999;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+
+        /* Nav links */
+        .mobile-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-links li {
+            margin-bottom: 10px;
+        }
+
+        .mobile-links a,
+        .accordion {
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
+            background: none;
+            border: none;
+            padding: 10px 0;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* Submenu (accordion hidden by default) */
+        .submenu {
+            display: none;
+            margin-left: 15px;
+        }
+
+        .submenu li {
+            padding: 5px 0;
+        }
+
+        /* Divider */
+        .divider {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+
+        /* Currency */
+        .currency {
+            margin-bottom: 15px;
+        }
+
+        /* Social icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 22px;
+        }
+
+        /* ====== MEDIA QUERIES ====== */
         @media (max-width: 768px) {
-
-            /* Hide currency dropdown on mobile */
-            .currency-dropdown,
-            .nav-icons select {
-                display: none;
-            }
-
-            /* Navbar layout for mobile */
-            nav {
-                justify-content: space-between;
-                align-items: center;
-                position: relative;
-                padding: 10px 20px;
-            }
-
-            /* Logo centered */
-            .logo {
-                order: 2;
-                margin: 0 auto;
-                text-align: center;
-            }
-
-            /* Nav icons (search & cart) on the right */
-            .nav-icons {
-                order: 3;
-                gap: 10px;
-                display: flex;
-            }
-
-            /* Hamburger button on left */
             .hamburger {
                 display: block;
-                order: 1;
+            }
+
+            nav .logo {
                 position: absolute;
-                background: none;
-                border: none;
-                cursor: pointer;
-                font-size: 28px;
-                z-index: 1001;
+                left: 50%;
+                transform: translateX(-50%);
             }
 
-            /* Hide nav links initially */
-            #nav-links {
-                display: none;
-                flex-direction: column;
-                width: 25%;
-                background: #fff;
+            .nav-icons {
                 position: absolute;
-                top: 55px;
-                /* just below navbar */
-                left: 0;
-                border: 1px solid #ddd;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                border-radius: 4px;
-                z-index: 999;
-                padding: 0;
-            }
-
-            /* Show nav links when active */
-            #nav-links.mobile-active {
-                display: flex;
-            }
-
-            /* Mobile nav link styles */
-            #nav-links.mobile-active li {
-                padding: 8px 10px;
-                margin: 0;
-                border-bottom: 1px solid #eee;
-            }
-
-            #nav-links.mobile-active li a {
-                width: 100%;
-                display: block;
-                text-align: left;
-                font-size: 14px;
-                color: #333;
-            }
-
-            #nav-links.mobile-active li:last-child {
-                border-bottom: none;
-            }
-
-            /* Notice bar arrows stay working on mobile */
-            .notice-bar .arrow {
-                font-size: 18px;
+                right: 15px;
             }
         }
     </style>
@@ -434,7 +462,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <!-- Hamburger button for mobile -->
-        <button class="hamburger" aria-label="Toggle menu">
+        <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
             &#9776; <!-- three horizontal lines-->
         </button>
         <div class="logo">My Brand Logo</div>
@@ -472,6 +500,50 @@
             <a href="cart.html" class="icon-link"><img src="shopping-bag.png" alt="Cart" width="22"></a>
         </div>
     </nav>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <ul class="mobile-links">
+            <li>
+                <button class="accordion">Home</button>
+                <ul class="submenu">
+                    <li><a href="#">Sub-Home 1</a></li>
+                    <li><a href="#">Sub-Home 2</a></li>
+                </ul>
+            </li>
+            <li>
+                <button class="accordion">Shop</button>
+                <ul class="submenu">
+                    <li><a href="#">Men</a></li>
+                    <li><a href="#">Women</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Bags</a></li>
+                    <li><a href="#">Shoes</a></li>
+                </ul>
+            </li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+
+        <hr class="divider">
+
+        <!-- Currency dropdown -->
+        <div class="currency">
+            <select id="currency" aria-label="Choose currency">
+                <option value="NGN" selected>₦ Nigeria - NGN</option>
+                <option value="USD">$ United States - USD</option>
+                <option value="GBP">£ United Kingdom - GBP</option>
+                <option value="EUR">€ Eurozone - EUR</option>
+            </select>
+        </div>
+
+        <!-- Social media -->
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-snapchat"></i></a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -540,6 +612,33 @@
             navLinks.classList.toggle("mobile-active");
         });
 
+        function toggleMenu() {
+            const navLinks = document.getElementById("nav-links");
+            const hamburger = document.querySelector(".hamburger");
+
+            // Only toggle on mobile screens
+            if (window.innerWidth <= 768) {
+                navLinks.classList.toggle("mobile-active");
+
+                // Toggle the hamburger icon between ☰ (open) and ✖ (close)
+                if (hamburger.innerHTML === "&#9776;") {
+                    hamburger.innerHTML = "&times;"; // ✖
+                } else {
+                    hamburger.innerHTML = "&#9776;"; // ☰
+                }
+            }
+        }
+
+        // Ensure menu resets if resized back to desktop
+        window.addEventListener("resize", () => {
+            const navLinks = document.getElementById("nav-links");
+            const hamburger = document.querySelector(".hamburger");
+
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove("mobile-active");
+                hamburger.innerHTML = "&#9776;"; // reset to ☰
+            }
+        });
     </script>
 </body>
 
