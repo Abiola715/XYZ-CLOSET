@@ -310,6 +310,70 @@
                 height: auto;
             }
         }
+
+        /* ================= MOBILE SPECIFIC ================= */
+        @media (max-width: 768px) {
+
+            /* Hide currency dropdown on mobile */
+            .nav-icons select,
+            .currency-dropdown {
+                display: none;
+            }
+
+            /* Center logo and place icons beside it */
+            nav {
+                justify-content: center;
+                flex-wrap: nowrap;
+            }
+
+            .logo {
+                order: 2;
+            }
+
+            .nav-icons {
+                order: 3;
+                gap: 10px;
+            }
+
+            #nav-links {
+                display: none;
+                /* hide links initially for mobile */
+            }
+
+            /* Hamburger menu styling */
+            .hamburger {
+                display: block;
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 28px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                z-index: 1001;
+            }
+
+            #nav-links.mobile-active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: white;
+                width: 100%;
+                border-top: 1px solid #ddd;
+                z-index: 999;
+            }
+
+            #nav-links.mobile-active li {
+                padding: 10px;
+            }
+
+            #nav-links.mobile-active li a {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
