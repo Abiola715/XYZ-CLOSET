@@ -2,185 +2,211 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>XYZ CLOSET</title>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        /* ---------- NOTICE BAR ---------- */
+        /* ---------------- BASE ---------------- */
+        :root {
+            --burgundy: #570217;
+            --burgundy-2: #a21c40;
+            --muted: #f5f5f5;
+            --text: #1a1a1a;
+            --max-accordion-height: 600px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Montserrat", system-ui, sans-serif;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ---------------- NOTICE BAR ---------------- */
         .notice-bar {
-            background: #570217;
-            padding: 15px 40px;
+            background: var(--burgundy);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: white;
-            font-family: "Montserrat", sans-serif;
-            position: relative;
-            height: 50px;
+            gap: 12px;
+            padding: 10px 20px;
         }
 
         .notice-wrapper {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 12px;
             flex: 1;
-            gap: 15px;
-        }
-
-        .notice-text {
-            text-align: center;
-            font-size: 16px;
-            font-weight: 500;
-            min-width: 250px;
-            position: relative;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
 
-        .notice {
-            opacity: 0;
-            position: absolute;
-            left: 0;
-            right: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .notice.active {
-            opacity: 1;
-            position: relative;
-        }
-
-        .arrow {
+        .arrow-btn {
             background: transparent;
             border: none;
             color: white;
             font-size: 20px;
             cursor: pointer;
+            padding: 6px;
         }
 
-        /* Currency Dropdown */
-        .currency-dropdown {
+        .notice-text {
             position: relative;
-            cursor: pointer;
-            font-size: 16px;
+            min-width: 220px;
+            max-width: 640px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             font-weight: 500;
         }
 
-        .currency-text:hover {
-            text-decoration: underline;
+        .notice-item {
+            position: absolute;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity .35s ease, transform .35s ease;
+            text-align: center;
+            font-size: 15px;
         }
 
-        .currency-arrow {
-            margin-left: 5px;
-            font-size: 12px;
+        .notice-item.show {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
         }
 
-        .currency-list {
+        /* Currency dropdown (notice bar) */
+        .notice-currency {
+            position: relative;
+            margin-left: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .notice-currency .list {
             display: none;
             position: absolute;
-            top: 100%;
             right: 0;
-            background: #570217;
-            color: white;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            min-width: 200px;
+            top: calc(100% + 8px);
+            background: var(--burgundy);
+            color: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+            min-width: 180px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .15);
+            z-index: 1200;
+        }
+
+        .notice-currency .list button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 12px;
+            border: none;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .notice-currency .list button:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* ---------------- NAVBAR ---------------- */
+        .navbar {
+            background: #fff;
+            border-bottom: 1px solid #e6e6e6;
+            position: sticky;
+            top: 0;
             z-index: 1000;
         }
 
-        .currency-list li {
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .currency-list li:hover {
-            background: #a21c40;
-        }
-
-        /* ---------- NAVIGATION BAR ---------- */
-        nav {
-            background: #fff;
-            padding: 10px 20px;
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #ddd;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 50px;
-        }
-
-        nav .logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: black;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-            align-items: center;
+            justify-content: flex-start;
+            padding: 12px 20px;
             gap: 20px;
         }
 
-        nav ul li {
-            position: relative;
+        .brand {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: .2px;
+            margin-right: 30px;
         }
 
-        nav ul li a {
-            text-decoration: none;
-            color: #1a1a1a;
-            font-family: "Poppins", sans-serif;
+        .nav-links {
             display: flex;
-            padding: 8px 15px;
+            list-style: none;
+            gap: 18px;
             align-items: center;
-            transition: all 0.3s ease;
+            margin: 0;
+            padding: 0;
+            flex: 1;
+        }
+
+        .nav-links a {
+            padding: 8px 12px;
             border-radius: 6px;
             font-weight: 500;
+            color: var(--text);
         }
 
-        nav ul li a:hover {
-            color: #570217;
+        .nav-links a:hover {
+            color: var(--burgundy);
             text-decoration: underline;
         }
 
+        .dropdown {
+            position: relative;
+        }
+
         .dropdown-menu {
-            display: block;
             position: absolute;
-            top: 100%;
+            top: calc(100% + 6px);
             left: 0;
             background: #fff;
-            border: 1px solid #ddd;
-            min-width: 150px;
-            z-index: 999;
+            border: 1px solid #eee;
+            min-width: 170px;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-menu li a {
-            padding: 10px;
-            display: block;
+            transform: translateY(-6px);
+            transition: opacity .22s ease, transform .22s ease;
             border-radius: 6px;
-            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 6px 0;
         }
 
-        .dropdown-menu li a:hover {
-            background: #570217;
-            color: #fff;
-            border: 1px solid #a21c40;
+        .dropdown-menu,
+        .submenu {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
         }
 
         .dropdown:hover .dropdown-menu {
@@ -189,330 +215,290 @@
             transform: translateY(0);
         }
 
-        .nav-icons {
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--burgundy);
+            color: #fff;
+        }
+
+        .nav-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 14px;
         }
 
-        .nav-icons select {
-            padding: 6px 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            background: #fff;
+        .icon-btn {
+            background: transparent;
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
         }
 
-        .nav-icons select:hover {
-            border-color: #570217;
-            color: #570217;
+        .desktop-currency {
+            display: inline-block;
         }
 
-        .icon-link img {
-            display: block;
-            transition: transform 0.2s, filter 0.2s;
+        .hamburger,
+        .mobile-menu {
+            display: none;
         }
 
-        .icon-link:hover img {
-            transform: scale(1.1);
-            filter: hue-rotate(320deg);
-        }
-
-        /* ---------- HERO SECTION ---------- */
+        /* ---------------- HERO ---------------- */
         .hero {
             height: 100vh;
-            background: url(cloth.jpeg) no-repeat center center/cover;
+            width: 100%;
+            background: url('cloth.jpeg') center center / cover no-repeat;
             display: flex;
-            justify-content: center;
             align-items: center;
-            position: relative;
+            justify-content: center;
             text-align: center;
-        }
-
-        .hero-content {
             position: relative;
-            z-index: 1;
-            color: black;
+            padding: 40px 20px;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2.8rem;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: #111;
+            line-height: 4.5;
         }
 
-        .hero-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: maroon;
+        .hero .btn {
+            background: maroon;
             color: #fff;
+            padding: 12px 22px;
+            border-radius: 6px;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s ease;
+            font-weight: 600;
         }
 
-        .hero-btn:hover {
-            background-color: #600000;
+        .hero .btn:hover {
+            background: #8b0000;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px 12px rgba(0, 0, 0, .15);
         }
 
-        /* ===== RESPONSIVE CSS ===== */
-        @media (max-width: 1024px) {
-
-            .notice-bar,
-            nav {
-                flex-wrap: wrap;
-                padding: 1.5vh 2vw;
-            }
-
-            .notice-wrapper,
-            nav ul {
-                justify-content: center;
-                gap: 2vw;
-                width: 100%;
-            }
-
-            .notice-text {
-                font-size: 1rem;
-                flex: 1;
-                min-width: 0;
-            }
-
-            .nav-icons {
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 10px;
-                width: 100%;
-                justify-content: flex-start;
-            }
-
-            .nav-icons select {
-                width: 100%;
-            }
-
-            .hero {
-                height: 60vh;
-                padding: 2vh 2vw;
-                background-size: cover;
-            }
-
-            .hero h1 {
-                font-size: clamp(1.8rem, 4vw, 2.5rem);
-            }
-
-            .hero-btn {
-                padding: clamp(10px, 2vw, 15px) clamp(20px, 5vw, 30px);
-                font-size: clamp(12px, 1.5vw, 16px);
-            }
-
-            .icon-link img {
-                width: clamp(16px, 3vw, 22px);
-                height: auto;
-            }
-        }
-
-        /* ====== NAVBAR ====== */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            background: #fff;
-            position: relative;
-            z-index: 1000;
-        }
-
-        /* Hamburger (hidden on desktop) */
-        .hamburger {
-            font-size: 26px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: none;
-        }
-
-        /* Logo */
-        .logo {
-            font-weight: bold;
-            font-size: 20px;
-            text-align: center;
-        }
-
-        /* Icons (right side) */
-        .nav-icons {
-            display: flex;
-            gap: 15px;
-            font-size: 20px;
-        }
-
-        /* ====== MOBILE MENU ====== */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            z-index: 999;
-            padding: 80px 20px 20px;
-            overflow-y: auto;
-        }
-
-        /* Nav links */
-        .mobile-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .mobile-links li {
-            margin-bottom: 10px;
-        }
-
-        .mobile-links a,
-        .accordion {
-            text-decoration: none;
-            font-size: 18px;
-            color: #333;
-            background: none;
-            border: none;
-            padding: 10px 0;
-            text-align: left;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        /* Submenu (accordion hidden by default) */
-        .submenu {
-            display: none;
-            margin-left: 15px;
-        }
-
-        .submenu li {
-            padding: 5px 0;
-        }
-
-        /* Divider */
-        .divider {
-            margin: 20px 0;
-            border: 1px solid #ddd;
-        }
-
-        /* Currency */
-        .currency {
-            margin-bottom: 15px;
-        }
-
-        /* Social icons */
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            font-size: 22px;
-        }
-
-        /* ====== MEDIA QUERIES ====== */
+        /* ---------------- MOBILE ---------------- */
         @media (max-width: 768px) {
+
+            .nav-links,
+            .desktop-currency {
+                display: none;
+            }
+
+            .nav-inner {
+                justify-content: space-between;
+            }
+
+            .brand {
+                margin: 0;
+            }
+
             .hamburger {
+                display: inline-flex;
+                font-size: 26px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                color: var(--text);
+            }
+
+            /* Fullscreen mobile menu */
+            .mobile-menu {
+                position: fixed;
+                top: 56px;
+                left: 0;
+                width: 100%;
+                height: calc(100% - 56px);
+                background: #fff;
+                z-index: 1500;
+                padding: 20px;
+                overflow-y: auto;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity .22s ease;
+                display: block;
+                /* but only visible when 'open'  */
+            }
+
+            .mobile-menu.open {
+                opacity: 1;
+                visibility: visible;
                 display: block;
             }
 
-            nav .logo {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
+            .mobile-links {
+                list-style: none;
+                padding: 0;
+                margin: 0;
             }
 
-            .nav-icons {
-                position: absolute;
-                right: 15px;
+            .mobile-links>li {
+                padding: 14px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .mobile-links a,
+            .mobile-links button.accordion {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 16px;
+                border: none;
+                background: transparent;
+                padding: 6px 0;
+                color: var(--text);
+                cursor: pointer;
+            }
+
+            .mobile-links button.accordion {
+                font-weight: 600;
+                text-align: left;
+            }
+
+            .submenu {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .32s ease, padding .32s ease;
+                padding-left: 12px;
+            }
+
+            .submenu.open {
+                max-height: var(--max-accordion-height);
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .submenu li {
+                padding: 8px 0;
+            }
+
+            .menu-divider {
+                margin: 16px 0;
+                border-top: 1px solid #eee;
+            }
+
+            .mobile-currency {
+                margin-bottom: 12px;
+            }
+
+            .social-row {
+                display: flex;
+                gap: 14px;
+                align-items: center;
+                font-size: 20px;
+            }
+
+            .mobile-arrow {
+                transition: transform .25s ease;
+            }
+
+            .mobile-arrow.rotate {
+                transform: rotate(90deg);
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Notice Bar -->
+
+    <!-- NOTICE BAR -->
     <div class="notice-bar">
         <div class="notice-wrapper">
-            <button class="arrow left">&#10094;</button>
+            <button class="arrow-btn" id="noticePrev">&#10094;</button>
             <div class="notice-text">
-                <div class="notice active">Payments accepted in Naira</div>
-                <div class="notice">Sizing available: X – XXL</div>
-                <div class="notice">No refunds on merchandise (except damaged items)</div>
-                <div class="notice">Visit XYZ.com for more</div>
-                <div class="notice">Read our Terms & Conditions</div>
+                <div class="notice-item show">Payments accepted in Naira</div>
+                <div class="notice-item">Sizing available: X – XXL</div>
+                <div class="notice-item">No refunds on merchandise</div>
+                <div class="notice-item">Visit XYZ.com for more</div>
             </div>
-            <button class="arrow right">&#10095;</button>
+            <button class="arrow-btn" id="noticeNext">&#10095;</button>
         </div>
 
-        <!-- Currency Dropdown -->
-        <div class="currency-dropdown">
-            <span class="currency-text">Nigeria | ₦ NGN</span>
-            <span class="currency-arrow">&#9662;</span>
-            <ul class="currency-list">
-                <li>Nigeria | ₦ NGN</li>
-                <li>United States | $ USD</li>
-                <li>United Kingdom | £ GBP</li>
-                <li>Eurozone | € EUR</li>
-            </ul>
+        <div class="notice-currency" id="noticeCurrency">
+            <span class="currency-label">Nigeria | ₦ NGN</span>
+            <span style="font-size:12px;">&#9662;</span>
+            <div class="list" id="noticeCurrencyList">
+                <button data-value="NGN">Nigeria | ₦ NGN</button>
+                <button data-value="USD">United States | $ USD</button>
+                <button data-value="GBP">United Kingdom | £ GBP</button>
+                <button data-value="EUR">Eurozone | € EUR</button>
+            </div>
         </div>
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <!-- Hamburger button for mobile -->
-        <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
-            &#9776; <!-- three horizontal lines-->
-        </button>
-        <div class="logo">My Brand Logo</div>
-        <ul id="nav-links">
-            <li class="dropdown">
-                <a href="#">HOME<span class="arrow">&#9662;</span></a>
-                <ul class="dropdown-menu">
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-inner">
+
+            <!-- Hamburger (mobile only) -->
+            <button class="hamburger icon-btn" id="hamburgerBtn">&#9776;</button>
+
+            <!-- Logo -->
+            <div class="brand">My Brand Logo</div>
+
+            <!-- Desktop nav links -->
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">HOME ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Sub Home 1</a></li>
+                        <li><a href="#">Sub Home 2</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#">SHOP ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">MEN</a></li>
+                        <li><a href="#">WOMEN</a></li>
+                        <li><a href="#">ACCESSORIES</a></li>
+                        <li><a href="#">BAGS</a></li>
+                        <li><a href="#">SHOES</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+
+            <!-- Right side -->
+            <div class="nav-right">
+                <div class="desktop-currency">
+                    <select>
+                        <option selected>₦ Nigeria - NGN</option>
+                        <option>$ United States - USD</option>
+                        <option>£ United Kingdom - GBP</option>
+                        <option>€ Eurozone - EUR</option>
+                    </select>
+                </div>
+                <button class="icon-btn"><img src="search.png" width="18"></button>
+                <button class="icon-btn"><img src="shopping-bag.png" width="22"></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-links">
+            <li>
+                <button class="accordion">Home <span class="mobile-arrow">&#9654;</span></button>
+                <ul class="submenu" role="menu" style="max-height: 0;">
                     <li><a href="#">Sub Home 1</a></li>
                     <li><a href="#">Sub Home 2</a></li>
                 </ul>
             </li>
-            <li class="dropdown">
-                <a href="#">SHOP<span class="arrow">&#9662;</span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">MEN</a></li>
-                    <li><a href="#">WOMEN</a></li>
-                    <li><a href="#">ACCESSORIES</a></li>
-                    <li><a href="#">BAGS</a></li>
-                    <li><a href="#">SHOES</a></li>
-                </ul>
-            </li>
-            <li><a href="about.html">ABOUT</a></li>
-            <li><a href="contact.html">CONTACT</a></li>
-        </ul>
-
-        <!-- Currency + Search + cart -->
-        <div class="nav-icons">
-            <select id="currency" aria-label="Choose currency">
-                <option value="NGN" selected>₦ Nigeria - NGN</option>
-                <option value="USD">$ United States - USD</option>
-                <option value="GBP">£ United Kingdom - GBP</option>
-                <option value="EUR">€ Eurozone - EUR</option>
-            </select>
-            <a href="search.html" class="icon-link"><img src="search.png" alt="Search" width="18"></a>
-            <a href="cart.html" class="icon-link"><img src="shopping-bag.png" alt="Cart" width="22"></a>
-        </div>
-    </nav>
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <ul class="mobile-links">
             <li>
-                <button class="accordion">Home</button>
-                <ul class="submenu">
-                    <li><a href="#">Sub-Home 1</a></li>
-                    <li><a href="#">Sub-Home 2</a></li>
-                </ul>
-            </li>
-            <li>
-                <button class="accordion">Shop</button>
-                <ul class="submenu">
+                <button class="accordion">Shop <span class="mobile-arrow">&#9654;</span></button>
+                <ul class="submenu" role="menu" style="max-height: 0;">
                     <li><a href="#">Men</a></li>
                     <li><a href="#">Women</a></li>
                     <li><a href="#">Accessories</a></li>
@@ -520,24 +506,22 @@
                     <li><a href="#">Shoes</a></li>
                 </ul>
             </li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
 
-        <hr class="divider">
+        <div class="menu-divider"></div>
 
-        <!-- Currency dropdown -->
-        <div class="currency">
-            <select id="currency" aria-label="Choose currency">
-                <option value="NGN" selected>₦ Nigeria - NGN</option>
-                <option value="USD">$ United States - USD</option>
-                <option value="GBP">£ United Kingdom - GBP</option>
-                <option value="EUR">€ Eurozone - EUR</option>
+        <div class="mobile-currency">
+            <select>
+                <option selected>₦ Nigeria - NGN</option>
+                <option>$ United States - USD</option>
+                <option>£ United Kingdom - GBP</option>
+                <option>€ Eurozone - EUR</option>
             </select>
         </div>
 
-        <!-- Social media -->
-        <div class="social-icons">
+        <div class="social-row">
             <a href="#"><i class="fab fa-whatsapp"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-tiktok"></i></a>
@@ -545,99 +529,45 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>NEW COLLECTIONS AVAILABLE</h1>
-            <a href="shop.html" class="hero-btn">SHOP HERE</a>
+            <a class="btn" href="shop.html">SHOP HERE</a>
         </div>
     </section>
 
     <script>
-        // ---------- Currency Dropdown ----------
-        const currencyDropdown = document.querySelector(".currency-dropdown");
-        const currencyList = document.querySelector(".currency-list");
-        const currencyText = document.querySelector(".currency-text");
-
-        currencyDropdown.addEventListener("click", () => {
-            currencyList.style.display =
-                currencyList.style.display === "block" ? "none" : "block";
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            hamburger.innerHTML = mobileMenu.classList.contains('open') ? '&times;' : '&#9776;';
         });
 
-        document.querySelectorAll(".currency-list li").forEach(item => {
-            item.addEventListener("click", () => {
-                currencyText.textContent = item.textContent;
-                currencyList.style.display = "none";
-            });
-        });
+        // make sure all submenus are closed on page load
+        document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
+        document.querySelectorAll('.accordion').forEach(b => b.setAttribute('aria-expanded', 'false'));
 
-        document.addEventListener("click", (e) => {
-            if (!e.target.closest(".currency-dropdown")) {
-                currencyList.style.display = "none";
-            }
-        });
+        // Accordion toggle
+        document.querySelectorAll('.accordion').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const submenu = btn.nextElementSibling;
+                const arrow = btn.querySelector('.mobile-arrow');
+                const isOpen = submenu.classList.contains('open');
 
-        // ---------- Notice Bar Arrows ----------
-        const notices = document.querySelectorAll(".notice-text .notice");
-        const leftArrow = document.querySelector(".arrow.left");
-        const rightArrow = document.querySelector(".arrow.right");
-        let current = 0;
+                document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
+                document.querySelectorAll('.mobile-arrow').forEach(a => a.classList.remove('rotate'));
 
-        function showNotice(index) {
-            notices.forEach((n, i) => {
-                n.classList.remove("active");
-                if (i === index) n.classList.add("active");
-            });
-        }
-
-        leftArrow.addEventListener("click", () => {
-            current = (current - 1 + notices.length) % notices.length;
-            showNotice(current);
-        });
-
-        rightArrow.addEventListener("click", () => {
-            current = (current + 1) % notices.length;
-            showNotice(current);
-        });
-
-        // Auto cycle notices every 5 seconds
-        setInterval(() => {
-            current = (current + 1) % notices.length;
-            showNotice(current);
-        }, 5000);
-        const hamburger = document.querySelector(".hamburger");
-        const navLinks = document.getElementById("nav-links");
-
-        hamburger.addEventListener("click", () => {
-            navLinks.classList.toggle("mobile-active");
-        });
-
-        function toggleMenu() {
-            const navLinks = document.getElementById("nav-links");
-            const hamburger = document.querySelector(".hamburger");
-
-            // Only toggle on mobile screens
-            if (window.innerWidth <= 768) {
-                navLinks.classList.toggle("mobile-active");
-
-                // Toggle the hamburger icon between ☰ (open) and ✖ (close)
-                if (hamburger.innerHTML === "&#9776;") {
-                    hamburger.innerHTML = "&times;"; // ✖
+                if (!isOpen) {
+                    submenu.classList.add('open');
+                    arrow.classList.add('rotate');
+                    btn.setAttribute('aria-expanded', "true");
                 } else {
-                    hamburger.innerHTML = "&#9776;"; // ☰
+                    btn.setAttribute('aria-expanded', "false")
                 }
-            }
-        }
-
-        // Ensure menu resets if resized back to desktop
-        window.addEventListener("resize", () => {
-            const navLinks = document.getElementById("nav-links");
-            const hamburger = document.querySelector(".hamburger");
-
-            if (window.innerWidth > 768) {
-                navLinks.classList.remove("mobile-active");
-                hamburger.innerHTML = "&#9776;"; // reset to ☰
-            }
+            });
         });
     </script>
 </body>
