@@ -315,63 +315,75 @@
         @media (max-width: 768px) {
 
             /* Hide currency dropdown on mobile */
-            .nav-icons select,
-            .currency-dropdown {
+            .currency-dropdown,
+            .nav-icons select {
                 display: none;
             }
 
-            /* Center logo and place icons beside it */
+            /* Navbar layout for mobile */
             nav {
-                justify-content: center;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
                 flex-wrap: nowrap;
             }
 
+            /* Logo centered */
             .logo {
                 order: 2;
+                margin: 0 auto;
             }
 
+            /* Nav icons (search & cart) on the right */
             .nav-icons {
                 order: 3;
                 gap: 10px;
             }
 
-            #nav-links {
-                display: none;
-                /* hide links initially for mobile */
-            }
-
-            /* Hamburger menu styling */
+            /* Hamburger button on left */
             .hamburger {
                 display: block;
-                position: absolute;
-                left: 10px;
-                top: 50%;
-                transform: translateY(-50%);
+                order: 1;
+                position: relative;
                 font-size: 28px;
-                background: none;
+                background: transparent;
                 border: none;
                 cursor: pointer;
+                color: black;
                 z-index: 1001;
             }
 
-            #nav-links.mobile-active {
-                display: flex;
+            /* Hide nav links initially */
+            #nav-links {
+                display: none;
                 flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background: white;
                 width: 100%;
+                background: #fff;
+                position: absolute;
+                top: 60px;
+                /* just below navbar */
+                left: 0;
                 border-top: 1px solid #ddd;
-                z-index: 999;
+                z-index: 998;
             }
 
+            /* Show nav links when active */
+            #nav-links.mobile-active {
+                display: flex;
+            }
+
+            /* Mobile nav link styles */
             #nav-links.mobile-active li {
                 padding: 10px;
             }
 
             #nav-links.mobile-active li a {
                 width: 100%;
+            }
+
+            /* Notice bar arrows stay working on mobile */
+            .notice-bar .arrow {
+                font-size: 18px;
             }
         }
     </style>
@@ -408,6 +420,10 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="logo">My Brand Logo</div>
+        <!-- Hamburger button for mobile -->
+        <button class="hamburger" aria-label="Toggle menu">
+            &#9776; <!-- three horizontal lines-->
+        </button>
         <ul id="nav-links">
             <li class="dropdown">
                 <a href="#">HOME<span class="arrow">&#9662;</span></a>
@@ -503,6 +519,13 @@
             current = (current + 1) % notices.length;
             showNotice(current);
         }, 5000);
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.getElementById("nav-links");
+
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("mobile-active");
+        });
+
     </script>
 </body>
 
