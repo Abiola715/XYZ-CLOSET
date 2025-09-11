@@ -322,34 +322,41 @@
 
             /* Navbar layout for mobile */
             nav {
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
                 position: relative;
-                flex-wrap: nowrap;
+                display: flex;
             }
 
             /* Logo centered */
             .logo {
                 order: 2;
-                margin: 0 auto;
+                z-index: 1000;
             }
 
             /* Nav icons (search & cart) on the right */
             .nav-icons {
                 order: 3;
-                gap: 10px;
+                gap: 15px;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                display: flex;
+                transform: translateY(-50%);
             }
 
             /* Hamburger button on left */
             .hamburger {
                 display: block;
                 order: 1;
-                position: relative;
-                font-size: 28px;
-                background: transparent;
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
                 border: none;
                 cursor: pointer;
-                color: black;
+                font-size: 28px;
                 z-index: 1001;
             }
 
@@ -370,11 +377,21 @@
             /* Show nav links when active */
             #nav-links.mobile-active {
                 display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 250px;
+                height: 100vh;
+                background: #fff;
+                border-right: 1px solid #ddd;
+                z-index: 999;
+                padding-top: 60px;
             }
 
             /* Mobile nav link styles */
             #nav-links.mobile-active li {
-                padding: 10px;
+                padding: 15px 10px;
             }
 
             #nav-links.mobile-active li a {
