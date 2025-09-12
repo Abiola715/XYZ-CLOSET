@@ -487,6 +487,7 @@
     <!-- NAVBAR -->
     <header class="navbar">
         <div class="nav-inner">
+            <button class="hamburger icon-btn" id="hamburgerBtn">&#9776;</button>
             <div class="brand">My Brand Logo</div>
             <ul class="nav-links">
                 <li class="dropdown">
@@ -521,7 +522,6 @@
                 </div>
                 <a href="search.html" class="icon-btn"><img src="search.png" width="18"></a>
                 <a href="cart.html" class="icon-btn"><img src="shopping-bag.png" width="22"></a>
-                <button class="hamburger icon-btn" id="hamburgerBtn">&#9776;</button>
             </div>
         </div>
     </header>
@@ -613,7 +613,7 @@
         const closeBtn = document.getElementById('closeMobileMenu');
 
         hamburger.addEventListener('click', () => {
-            mobileMenu.classList.add('open');
+            mobileMenu.classList.toggle('open');
         });
         closeBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('open');
