@@ -339,7 +339,6 @@
                 background: #fff;
                 z-index: 1500;
                 padding: 20px;
-                overflow-y: auto;
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity .22s ease;
@@ -613,7 +612,7 @@
         const closeBtn = document.getElementById('closeMobileMenu');
 
         hamburger.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
+            mobileMenu.classList.add('open');
         });
         closeBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('open');
