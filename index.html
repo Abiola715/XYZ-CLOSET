@@ -38,6 +38,8 @@
 
         button {
             cursor: pointer;
+            background: none;
+            border: none;
         }
 
         /* ---------------- NOTICE BAR ---------------- */
@@ -153,7 +155,7 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
             padding: 12px 20px;
             gap: 20px;
         }
@@ -162,7 +164,6 @@
             font-weight: 700;
             font-size: 20px;
             letter-spacing: .2px;
-            margin-right: 30px;
         }
 
         .nav-links {
@@ -170,7 +171,6 @@
             list-style: none;
             gap: 18px;
             align-items: center;
-            flex: 1;
         }
 
         .nav-links a {
@@ -246,18 +246,13 @@
             gap: 14px;
         }
 
-        .icon-btn {
-            background: transparent;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 6px;
-            cursor: pointer;
+        .icon-btn img {
+            display: block;
         }
 
-        .desktop-currency {
-            display: inline-block;
+        .desktop-currency select {
+            padding: 6px;
+            border-radius: 4px;
         }
 
         /* ---------------- HERO ---------------- */
@@ -269,13 +264,11 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
             padding: 40px 20px;
         }
 
         .hero h1 {
             font-size: 2.8rem;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             color: #111;
             line-height: 4.5;
         }
@@ -296,11 +289,6 @@
             background: #8b0000;
         }
 
-        .mobile-menu,
-        .hamburger {
-            display: none;
-        }
-
         /* ---------------- MOBILE ---------------- */
         @media (max-width: 768px) {
 
@@ -309,58 +297,18 @@
                 display: none;
             }
 
-            .nav-inner {
-                justify-content: space-between;
-            }
-
-            @media(max-width:768px) {
-                .hero {
-                    min-height: 60vh;
-                    /* smaller height for mobile */
-                    background-size: cover;
-                    background-position: center;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 20px;
-                }
-
-                .hero h1 {
-                    font-size: 1.5rem;
-                    /* smaller font for one-line */
-                    line-height: 1.2;
-                    white-space: nowrap;
-                    /* forces one line */
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    text-align: center;
-                }
-
-                .hero .btn {
-                    font-size: 14px;
-                    padding: 10px 16px;
-                }
-            }
-
             .hamburger {
                 display: inline-flex;
                 font-size: 26px;
-                background: transparent;
-                border: none;
                 cursor: pointer;
-                color: var(--text);
-            }
-
-            .notice-currency {
-                display: none;
             }
 
             .mobile-menu {
                 position: fixed;
-                top: 56px;
+                top: 0;
                 left: 0;
                 width: 100%;
-                height: calc(100% - 56px);
+                height: 100%;
                 background: #fff;
                 z-index: 1500;
                 padding: 20px;
@@ -377,22 +325,17 @@
 
             .close-mobile-btn {
                 font-size: 32px;
-                background: transparent;
-                border: none;
-                cursor: pointer;
                 color: #111;
-                display: none;
-                margin-bottom: 20px;
+                display: block;
                 text-align: right;
+                margin-bottom: 20px;
             }
 
             .mobile-links {
                 list-style: none;
-                padding: 0;
-                margin: 0;
             }
 
-            .mobile-links>li {
+            .mobile-links li {
                 padding: 12px 0;
                 border-bottom: 1px solid #f0f0f0;
             }
@@ -404,13 +347,10 @@
                 justify-content: space-between;
                 align-items: center;
                 font-size: 16px;
-                border: none;
-                background: transparent;
                 padding: 6px 0;
                 color: var(--text);
-                cursor: pointer;
-                text-align: left;
                 font-weight: 500;
+                cursor: pointer;
             }
 
             .submenu {
@@ -435,11 +375,6 @@
                 border-top: 1px solid #eee;
             }
 
-            .mobile-currency {
-                display: block;
-                margin: 20px 0;
-            }
-
             .mobile-currency select {
                 width: 100%;
                 padding: 8px;
@@ -449,13 +384,7 @@
             .social-row {
                 display: flex;
                 gap: 14px;
-                align-items: center;
                 font-size: 20px;
-            }
-
-            .social-row a {
-                color: var(--text);
-                text-decoration: none;
             }
 
             .mobile-arrow {
@@ -464,6 +393,26 @@
 
             .mobile-arrow.rotate {
                 transform: rotate(90deg);
+            }
+
+            /* Hero adjustments for mobile */
+            .hero {
+                min-height: 60vh;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+                line-height: 1.2;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .hero .btn {
+                font-size: 14px;
+                padding: 10px 16px;
             }
         }
     </style>
@@ -499,9 +448,7 @@
     <!-- NAVBAR -->
     <header class="navbar">
         <div class="nav-inner">
-            <button class="hamburger icon-btn" id="hamburgerBtn">&#9776;</button>
             <div class="brand">My Brand Logo</div>
-
             <ul class="nav-links">
                 <li class="dropdown">
                     <a href="#">HOME ▾</a>
@@ -513,15 +460,15 @@
                 <li class="dropdown">
                     <a href="#">SHOP ▾</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">MEN</a></li>
-                        <li><a href="#">WOMEN</a></li>
-                        <li><a href="#">ACCESSORIES</a></li>
-                        <li><a href="#">BAGS</a></li>
-                        <li><a href="#">SHOES</a></li>
+                        <li><a href="shop.html">MEN</a></li>
+                        <li><a href="shop.html">WOMEN</a></li>
+                        <li><a href="shop.html">ACCESSORIES</a></li>
+                        <li><a href="shop.html">BAGS</a></li>
+                        <li><a href="shop.html">SHOES</a></li>
                     </ul>
                 </li>
-                <li><a href="#">ABOUT</a></li>
-                <li><a href="#">CONTACT</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
             </ul>
 
             <div class="nav-right">
@@ -535,12 +482,12 @@
                 </div>
                 <a href="search.html" class="icon-btn"><img src="search.png" width="18"></a>
                 <a href="cart.html" class="icon-btn"><img src="shopping-bag.png" width="22"></a>
+                <button class="hamburger icon-btn" id="hamburgerBtn">&#9776;</button>
             </div>
         </div>
     </header>
 
     <!-- MOBILE MENU -->
-    <button class="hamburger icon-btn">&#9776;</button>
     <div class="mobile-menu" id="mobileMenu">
         <button id="closeMobileMenu" class="close-mobile-btn">&times;</button>
         <ul class="mobile-links">
@@ -593,43 +540,33 @@
     </section>
 
     <script>
-        // ---------------- NOTICE BAR ROTATION ----------------
+        // ---------------- NOTICE BAR ----------------
         const noticeItems = document.querySelectorAll('.notice-item');
         let currentNotice = 0;
-
         function showNotice(index) {
-            noticeItems.forEach((item, i) => {
-                item.classList.toggle('show', i === index);
-            });
+            noticeItems.forEach((item, i) => item.classList.toggle('show', i === index));
         }
-
         document.getElementById('noticeNext').addEventListener('click', () => {
             currentNotice = (currentNotice + 1) % noticeItems.length;
             showNotice(currentNotice);
         });
-
         document.getElementById('noticePrev').addEventListener('click', () => {
             currentNotice = (currentNotice - 1 + noticeItems.length) % noticeItems.length;
             showNotice(currentNotice);
         });
-
         setInterval(() => {
             currentNotice = (currentNotice + 1) % noticeItems.length;
             showNotice(currentNotice);
         }, 4000);
 
-        // ---------------- CURRENCY DROPDOWN ----------------
+        // ---------------- CURRENCY ----------------
         const noticeCurrency = document.getElementById('noticeCurrency');
         const currencyList = document.getElementById('noticeCurrencyList');
-
-        noticeCurrency.addEventListener('click', (e) => {
+        noticeCurrency.addEventListener('click', e => {
             e.stopPropagation();
             currencyList.style.display = currencyList.style.display === 'block' ? 'none' : 'block';
         });
-
-        document.addEventListener('click', () => {
-            currencyList.style.display = 'none';
-        });
+        document.addEventListener('click', () => { currencyList.style.display = 'none'; });
 
         // ---------------- MOBILE MENU ----------------
         const hamburger = document.getElementById('hamburgerBtn');
@@ -638,14 +575,9 @@
 
         hamburger.addEventListener('click', () => {
             mobileMenu.classList.add('open');
-            closeBtn.style.display = 'block';
-            hamburger.style.display = 'none';
         });
-
         closeBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('open');
-            closeBtn.style.display = 'none';
-            hamburger.style.display = 'inline-flex';
         });
 
         // ---------------- MOBILE ACCORDION ----------------
@@ -653,25 +585,12 @@
             btn.addEventListener('click', () => {
                 const submenu = btn.nextElementSibling;
                 const arrow = btn.querySelector('.mobile-arrow');
-                const isOpen = submenu.classList.contains('open');
-
-                // Close other submenus
-                document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
-                document.querySelectorAll('.mobile-arrow').forEach(a => a.classList.remove('rotate'));
-
-                if (!isOpen) {
-                    submenu.classList.add('open');
-                    arrow.classList.add('rotate');
-                    btn.setAttribute('aria-expanded', 'true');
-                } else {
-                    btn.setAttribute('aria-expanded', 'false')
-                }
+                submenu.classList.toggle('open');
+                arrow.classList.toggle('rotate');
             });
         });
-
-
-
     </script>
+
 </body>
 
 </html>
