@@ -331,14 +331,8 @@
             }
 
             .mobile-menu {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: #fff;
-                z-index: 1500;
-                padding: 20px;
+                display: block;
+                /* remove display:none */
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity .22s ease;
@@ -348,6 +342,8 @@
                 opacity: 1;
                 visibility: visible;
             }
+
+
 
             .close-mobile-btn {
                 font-size: 32px;
