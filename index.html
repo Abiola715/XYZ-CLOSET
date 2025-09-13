@@ -294,6 +294,54 @@
             display: none;
         }
 
+        /* Featured Collections */
+        .featured-collections {
+            padding: 60px 20px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .featured-collections h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: var(--burgundy);
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .collection-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .collection-item:hover {
+            transform: scale(1.05);
+        }
+
+        .collection-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .collection-item p {
+            margin: 10px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--burgundy);
+            display: block;
+        }
+
+
         @media (max-width: 768px) {
 
             /* ---------------- NOTICE BAR ---------------- */
@@ -407,6 +455,10 @@
                 padding-bottom: 10px;
             }
 
+            .submenu li {
+                list-style: none;
+            }
+
             .submenu li a {
                 font-size: 15px;
                 font-weight: 500;
@@ -430,7 +482,8 @@
 
             /* ---------------- MOBILE CURRENCY ---------------- */
             .mobile-currency {
-                margin-bottom: 12px;
+                margin: 10px 0;
+                text-align: center;
             }
 
             .mobile-currency select {
@@ -451,14 +504,15 @@
 
             /* ---------------- MENU DIVIDERS ---------------- */
             .menu-divider {
-                border-top: 1px solid #ddd;
-                margin: 16px 0;
+                border: 1px solid #ddd;
+                margin: 20px 0;
             }
 
             .social-row {
                 display: flex;
                 gap: 14px;
                 font-size: 20px;
+                justify-content: center;
             }
 
             /* ---------------- HERO SECTION ---------------- */
@@ -493,6 +547,31 @@
                 font-size: 14px;
                 padding: 10px 16px;
                 margin-top: 20px;
+            }
+
+            .featured-collections {
+                padding: 40px 15px;
+            }
+
+            .featured-collections h2 {
+                font-size: 1.5rem;
+            }
+
+            .collection-grid {
+                display: flex;
+                gap: 15px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+            }
+
+            .collection-item {
+                flex: 0 0 auto;
+                max-width: 160px;
+                scroll-snap-align: start;
+            }
+
+            .collection-item img {
+                height: 140px;
             }
         }
     </style>
@@ -618,6 +697,33 @@
             <a class="btn" href="#">SHOP HERE</a>
         </div>
     </section>
+    <!-- FEATURED COLLECTIONS -->
+    <section class="featured-collections">
+        <h2>Featured Collections</h2>
+        <div class="collection-grid">
+            <div class="collection-item">
+                <img src="JEANS.jpg" alt="JEANS">
+                <p>JEANS</p>
+            </div>
+            <div class="collection-item">
+                <img src="TOPS.jpg" alt="TOPS">
+                <p>TOPS</p>
+            </div>
+            <div class="collection-item">
+                <img src="SHOES.jpg" alt="SHOES">
+                <p>SHOES</p>
+            </div>
+            <div class="collection-item">
+                <img src="BAGS.jpg" alt="BAGS">
+                <p>BAGS</p>
+            </div>
+            <div class="collection-item">
+                <img src="ACCESSORIES.jpg" alt="ACCESSORIES">
+                <p>ACCESSORIES</p>
+            </div>
+        </div>
+    </section>
+
 
     <script>
         // ---------------- NOTICE BAR ----------------
